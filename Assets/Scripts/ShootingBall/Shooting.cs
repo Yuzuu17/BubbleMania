@@ -11,6 +11,4 @@ public class Shooting : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(Vector3.back * Force, ForceMode.Impulse);
     }
 
-
-
 }
