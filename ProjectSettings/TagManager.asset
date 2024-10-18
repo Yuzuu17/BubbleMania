@@ -8,6 +8,7 @@ TagManager:
   - BasketBall
   - Soccerball
   - WALL
+  - Line
   layers:
   - Default
   - TransparentFX
