@@ -18,11 +18,11 @@ public class Shooting : MonoBehaviour
                                                                 
         if (Input.GetKey(KeyCode.A))
         {
-            moveHorizontal = -moveSpeed;                                    // Move left
+            moveHorizontal = moveSpeed;                                      // Move left
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            moveHorizontal = moveSpeed;                                     // Move right
+            moveHorizontal = -moveSpeed;                                     // Move right
         }
 
                                                                            // Apply movement

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class Game : MonoBehaviour
 {
     public GameObject Balls;
     private Dictionary<string, int> ballCollisionCount = new Dictionary<string, int>();
+    private HashSet<GameObject> collidedBalls = new HashSet<GameObject>(); // To track collided balls
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -14,21 +16,28 @@ public class Game : MonoBehaviour
         // Check if the collided object has a relevant ball tag
         if (ballTag == "Soccerball" || ballTag == "BasketBall" || ballTag == "Baseball")
         {
-            // Increment the count for this ball type
-            if (!ballCollisionCount.ContainsKey(ballTag))
+            // Ensure we only count this specific ball once
+            if (!collidedBalls.Contains(collision.gameObject))
             {
-                ballCollisionCount[ballTag] = 0;
-            }
-            ballCollisionCount[ballTag]++;
+                collidedBalls.Add(collision.gameObject); // Track this ball as collided
 
-            // Check if the count has reached 3
-            if (ballCollisionCount[ballTag] >= 3)
-            {
-                // Destroy all balls of this type
-                DestroyBallsOfType(ballTag);
+                // Increment the count for this ball type
+                if (!ballCollisionCount.ContainsKey(ballTag))
+                {
+                    ballCollisionCount[ballTag] = 0;
+                }
+                ballCollisionCount[ballTag]++;
 
-                // Reset the count for this ball type
-                ballCollisionCount[ballTag] = 0;
+                // Check if the count has reached 3
+                if (ballCollisionCount[ballTag] >= 3)
+                {
+                    // Destroy all balls of this type
+                    DestroyBallsOfType(ballTag);
+
+                    // Reset the count for this ball type
+                    ballCollisionCount[ballTag] = 0;
+                    collidedBalls.Clear(); // Reset the collided balls set
+                }
             }
         }
     }
@@ -40,6 +49,7 @@ public class Game : MonoBehaviour
         foreach (GameObject ball in ballsToDestroy)
         {
             Destroy(ball);
+            Debug.LogError("Ball");
         }
     }
 }
