@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnBall : MonoBehaviour
 {
-    public GameObject[] BallsPrefabs; // Array to hold your prefabs
+    public GameObject[] BallsPrefabs;                                                               // Array 
 
     void Update()
     {
