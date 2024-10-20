@@ -78,6 +78,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5522365127776810035}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2038979823570587827}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 638794678808426078}
   m_SourcePrefab: {fileID: 100100000, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
 --- !u!1 &3422918791613058136 stripped
 GameObject:
@@ -133,3 +139,30 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8279484070357006803, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
+--- !u!114 &2038979823570587827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422918791613058136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47f9d320d35944469c8085abd174dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Force: 20
+  moveSpeed: 5
+--- !u!114 &638794678808426078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422918791613058136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b08cdebe309da4ea0d6b9819161520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Balls: {fileID: 3422918791613058136}

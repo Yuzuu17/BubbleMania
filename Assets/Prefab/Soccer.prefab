@@ -74,6 +74,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1753960869118747962}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7549217131461814789}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4513811515482250114}
   m_SourcePrefab: {fileID: 100100000, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
 --- !u!1 &2748502489503087147 stripped
 GameObject:
@@ -129,3 +135,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7549217131461814789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748502489503087147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b08cdebe309da4ea0d6b9819161520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Balls: {fileID: 2748502489503087147}
+--- !u!114 &4513811515482250114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748502489503087147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47f9d320d35944469c8085abd174dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Force: 20
+  moveSpeed: 5
