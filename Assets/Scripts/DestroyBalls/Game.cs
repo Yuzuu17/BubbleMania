@@ -1,13 +1,10 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public GameObject Balls;
-    private Dictionary<string, int> ballCollisionCount = new Dictionary<string, int>();
-    private HashSet<GameObject> collidedBalls = new HashSet<GameObject>(); // To track collided balls
+    private Dictionary<string, List<GameObject>> ballsByTag = new Dictionary<string, List<GameObject>>();
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -16,40 +13,70 @@ public class Game : MonoBehaviour
         // Check if the collided object has a relevant ball tag
         if (ballTag == "Soccerball" || ballTag == "BasketBall" || ballTag == "Baseball")
         {
-            // Ensure we only count this specific ball once
-            if (!collidedBalls.Contains(collision.gameObject))
+            Debug.Log("Collision with: " + ballTag); // Debug log
+
+            // Add the ball to the dictionary
+            if (!ballsByTag.ContainsKey(ballTag))
             {
-                collidedBalls.Add(collision.gameObject); // Track this ball as collided
-
-                // Increment the count for this ball type
-                if (!ballCollisionCount.ContainsKey(ballTag))
-                {
-                    ballCollisionCount[ballTag] = 0;
-                }
-                ballCollisionCount[ballTag]++;
-
-                // Check if the count has reached 3
-                if (ballCollisionCount[ballTag] >= 3)
-                {
-                    // Destroy all balls of this type
-                    DestroyBallsOfType(ballTag);
-
-                    // Reset the count for this ball type
-                    ballCollisionCount[ballTag] = 0;
-                    collidedBalls.Clear(); // Reset the collided balls set
-                }
+                ballsByTag[ballTag] = new List<GameObject>();
             }
+
+            // Add the collided ball to the list
+            if (!ballsByTag[ballTag].Contains(collision.gameObject))
+            {
+                ballsByTag[ballTag].Add(collision.gameObject);
+            }
+
+            // Check for chained balls to destroy
+            CheckForChainedDestruction(ballTag);
         }
     }
 
-    private void DestroyBallsOfType(string ballTag)
+    private void CheckForChainedDestruction(string ballTag)
     {
-        // Find all objects with the specified tag and destroy them
-        GameObject[] ballsToDestroy = GameObject.FindGameObjectsWithTag(ballTag);
+        List<GameObject> ballsToDestroy = new List<GameObject>();
+        HashSet<GameObject> visited = new HashSet<GameObject>();
+
+        foreach (GameObject ball in ballsByTag[ballTag])
+        {
+            if (!visited.Contains(ball))
+            {
+                List<GameObject> connectedBalls = new List<GameObject>();
+                FindConnectedBalls(ball, ballTag, connectedBalls, visited);
+
+                if (connectedBalls.Count > 2 )
+                {
+                    ballsToDestroy.AddRange(connectedBalls);
+                }
+            }
+        }
+
+        // Destroy the balls in the connected list
         foreach (GameObject ball in ballsToDestroy)
         {
             Destroy(ball);
-            Debug.LogError("Ball");
+            Debug.Log("Destroyed: " + ball.name);
+        }
+
+        // Clear the list for this tag after processing
+        ballsByTag[ballTag].Clear();
+    }
+
+    private void FindConnectedBalls(GameObject ball, string ballTag, List<GameObject> connectedBalls, HashSet<GameObject> visited)
+    {
+        if (visited.Contains(ball)) return;
+
+        visited.Add(ball);
+        connectedBalls.Add(ball);
+
+        // Find adjacent balls within a certain distance
+        GameObject[] allBalls = GameObject.FindGameObjectsWithTag(ballTag);
+        foreach (GameObject otherBall in allBalls)
+        {
+            if (otherBall != ball && Vector3.Distance(ball.transform.position, otherBall.transform.position) < 1.5f) // Increased distance
+            {
+                FindConnectedBalls(otherBall, ballTag, connectedBalls, visited);
+            }
         }
     }
 }
